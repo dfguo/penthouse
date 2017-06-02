@@ -10,7 +10,7 @@ const tmp = require('tmp')
 const path = require('path')
 const spawn = require('child_process').spawn
 const phantomjs = require('phantomjs-prebuilt')
-const phantomJsBinPath = phantomjs.path
+const defaultPhantomJsBinPath = phantomjs.path
 const apartment = require('apartment')
 const cssAstFormatter = require('css')
 const osTmpdir = require('os-tmpdir')
@@ -200,6 +200,11 @@ const generateCriticalCss = async function generateCriticalCss (
     script,
     ...scriptArgs
   ]
+
+  let phantomJsBinPath = defaultPhantomJsBinPath
+  if (options.phantomJsBinPath) {
+    phantomJsBinPath = options.phantomJsBinPath
+  }
 
   const cp = spawn(phantomJsBinPath, phantomJsArgs)
 
